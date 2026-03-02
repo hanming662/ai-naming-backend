@@ -93,7 +93,9 @@ public class BaziService {
         // 基准偏移（调整到与天干地支对齐）
         // 这里用简化算法，实际精度可能差1-2天
         int offset = (jd + 10) % 60;
-        if (offset < 0) offset += 60;
+        if (offset < 0) {
+            offset += 60;
+        }
 
         return offset;
     }
@@ -102,7 +104,9 @@ public class BaziService {
      * 分析五行强弱
      */
     public Map<String, Object> analyzeWuxing(Map<String, Object> bazi) {
-        if (bazi == null) return null;
+        if (bazi == null) {
+            return null;
+        }
 
         Map<String, Integer> count = new LinkedHashMap<>();
         count.put("金", 0);
@@ -120,8 +124,12 @@ public class BaziService {
                 String tgWx = TIANGAN_WUXING.get(tg);
                 String dzWx = DIZHI_WUXING.get(dz);
 
-                if (tgWx != null) count.merge(tgWx, 1, Integer::sum);
-                if (dzWx != null) count.merge(dzWx, 1, Integer::sum);
+                if (tgWx != null) {
+                    count.merge(tgWx, 1, Integer::sum);
+                }
+                if (dzWx != null) {
+                    count.merge(dzWx, 1, Integer::sum);
+                }
             }
         }
 
@@ -130,9 +138,13 @@ public class BaziService {
         List<String> strong = new ArrayList<>();
 
         for (Map.Entry<String, Integer> entry : count.entrySet()) {
-            if (entry.getValue() == 0) lack.add(entry.getKey());
-            else if (entry.getValue() == 1) weak.add(entry.getKey());
-            else if (entry.getValue() >= 3) strong.add(entry.getKey());
+            if (entry.getValue() == 0) {
+                lack.add(entry.getKey());
+            } else if (entry.getValue() == 1) {
+                weak.add(entry.getKey());
+            } else if (entry.getValue() >= 3) {
+                strong.add(entry.getKey());
+            }
         }
 
         // 五行推荐字

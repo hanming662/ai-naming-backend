@@ -33,16 +33,24 @@ public class ChineseCharUtils {
 
     public static List<String> getCharsByWuxing(String wuxing, int count) {
         List<String> chars = WUXING_CHARS.getOrDefault(wuxing, new ArrayList<>());
-        if (chars.size() <= count) return new ArrayList<>(chars);
+        if (chars.size() <= count) {
+            return new ArrayList<>(chars);
+        }
         List<String> copy = new ArrayList<>(chars);
         Collections.shuffle(copy);
         return copy.subList(0, count);
     }
 
     public static boolean validateNamingRequest(String surname, String gender, int charCount) {
-        if (surname == null || surname.isEmpty()) return false;
-        if (!isValidChinese(surname)) return false;
-        if (surname.length() > 2) return false;
+        if (surname == null || surname.isEmpty()) {
+            return false;
+        }
+        if (!isValidChinese(surname)) {
+            return false;
+        }
+        if (surname.length() > 2) {
+            return false;
+        }
         if (!"男".equals(gender) && !"女".equals(gender) && !"中性".equals(gender)) {
             return false;
         }
@@ -63,9 +71,13 @@ public class ChineseCharUtils {
     }
 
     public static String sanitizeInput(String text) {
-        if (text == null) return "";
+        if (text == null) {
+            return "";
+        }
         text = text.trim();
-        if (text.length() > 200) text = text.substring(0, 200);
+        if (text.length() > 200) {
+            text = text.substring(0, 200);
+        }
         return text;
     }
 }
